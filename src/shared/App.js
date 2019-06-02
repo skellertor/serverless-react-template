@@ -1,9 +1,9 @@
 import React from 'react';
 
-function App({ person }) {
+function App({ initialData }) {
     return (
         <div>
-            {`Hey there ${person.name}`}
+            {`Hey there ${initialData.name}`}
         </div>
     );
 }

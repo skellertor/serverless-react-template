@@ -13,20 +13,12 @@ provider:
 
 custom:
   webpack:
+    includeModules:
+      forceInclude:
+        - react
+        - react-dom
+        - serialize-javascript
     webpackConfig: 'webpack.server.config.js'
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
 
 functions:
   getForm:

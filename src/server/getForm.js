@@ -1,15 +1,13 @@
-'use strict';
 import React from 'react';
 import { renderToString } from 'react-dom/server'
 import serialize from 'serialize-javascript';
 import App from '../shared/App';
 
-export const main = async (event) => {
-    const person = {
-        name: 'Sam',
-        age: 32
+export function main(event) {
+    const initialData = {
+        name: 'Bob'
     };
-    const markup = renderToString(<App person={person}/>);
+    const markup = renderToString(<App initialData={initialData}/>);
     const responseBody = `
         <!DOCTYPE html>
         <html lang="en">
@@ -23,8 +21,8 @@ export const main = async (event) => {
                   box-sizing: inherit;
                 }
             </style>
-            <script src="/bundle.js" defer></script>
-            <script>window.__INITIAL_DATA__ = ${serialize(person, { isJSON: true })}</script>
+            <script src="/dev/bundle.js" defer></script>
+            <script>window.__INITIAL_DATA__ = ${serialize(initialData, { isJSON: true })}</script>
           </head>
     
           <body>
@@ -35,11 +33,12 @@ export const main = async (event) => {
         </html>
     `;
 
-    return {
+    console.log('right before the return', markup);
+    return Promise.resolve({
         statusCode: 200,
         headers: {
             'content-type': 'text/html'
         },
         body: responseBody
-    };
-};
+    });
+}
