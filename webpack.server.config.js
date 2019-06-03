@@ -12,18 +12,26 @@ module.exports = [
     target: 'node',
     externals: [nodeExternals()],
     module: {
-        rules: [
-            {
-                test: /\.js$/,
-                loaders: ['babel-loader'],
-                include: __dirname,
-                exclude: [/node_modules/]
-            }
-        ]
+      rules: [
+        {
+          test: /\.js$/,
+          loaders: ['babel-loader'],
+          include: __dirname,
+          exclude: [/node_modules/]
+        },
+        {
+          test: /\.css$/,
+          loaders: [
+            'css-loader'
+          ],
+          include: __dirname,
+          exclude: [/browser/]
+        }
+      ]
     }
   },
   {
-    entry: { 'src/server/bundle': './src/browser/handler.js' },
+    entry: {'src/server/bundle': './src/browser/handler.js'},
     target: 'web',
     output: {
       path: path.resolve(__dirname, '.webpack'),
@@ -44,6 +52,16 @@ module.exports = [
           },
           include: __dirname,
           exclude: /node_modules/
+        },
+        {
+          test: /\.css$/,
+          use: [{
+            loader: 'style-loader'
+          }, {
+            loader: 'css-loader'
+          }, {
+            loader: 'sass-loader'
+          }]
         }
       ]
     }
